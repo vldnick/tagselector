@@ -22,6 +22,11 @@ export const Suggestions: React.FC<ISuggestionsList> = ({
 }) => {
   const [selectedItems, setSelectedItems] = useState<ITag[]>([]);
 
+  const handleApply = async (selectedItems: ITag[]) => {
+    await onApply(selectedItems);
+    setSelectedItems([]);
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -42,11 +47,11 @@ export const Suggestions: React.FC<ISuggestionsList> = ({
   };
 
   return (
-    <SuggestionsContainer>
-      <SuggestionsList aria-live="polite">
+    <StyledSuggestionsContainer>
+      <StyledSuggestionsList aria-live="polite">
         {!isLoading ? (
           suggestions.length === 0 ? (
-            <CenteredContainer>No tags found</CenteredContainer>
+            <StyledCenteredContainer>No tags found</StyledCenteredContainer>
           ) : (
             suggestions.map((item) => {
               const isSelected =
@@ -55,44 +60,44 @@ export const Suggestions: React.FC<ISuggestionsList> = ({
                 ) >= 0;
 
               return (
-                <ListItem
+                <StyledListItem
                   tabIndex={0}
                   onKeyDown={handleEnterKeyDown(() => handleSelect(item))}
                   key={item.value}
                   onClick={() => handleSelect(item)}
                 >
-                  <Checkbox role="checkbox" checked={isSelected}>
-                    {isSelected ? <Mark /> : null}
-                  </Checkbox>
-                  <Label>{item.label}</Label>
-                  <Counter>+{item.count}</Counter>
-                </ListItem>
+                  <StyledCheckbox role="checkbox" checked={isSelected}>
+                    {isSelected ? <StyledMark /> : null}
+                  </StyledCheckbox>
+                  <StyledLabel>{item.label}</StyledLabel>
+                  <StyledCounter>+{item.count}</StyledCounter>
+                </StyledListItem>
               );
             })
           )
         ) : (
-          <CenteredContainer>Loading...</CenteredContainer>
+          <StyledCenteredContainer>Loading...</StyledCenteredContainer>
         )}
-      </SuggestionsList>
-      <Button
+      </StyledSuggestionsList>
+      <StyledButton
         type="submit"
-        onClick={() => onApply(selectedItems)}
+        onClick={() => handleApply(selectedItems)}
         disabled={isApplying}
       >
         {isApplying ? 'Loading...' : buttonTitle}
-      </Button>
-    </SuggestionsContainer>
+      </StyledButton>
+    </StyledSuggestionsContainer>
   );
 };
 
-const SuggestionsContainer = styled.div`
+const StyledSuggestionsContainer = styled.div`
   padding: 8px;
   box-sizing: border-box;
   width: 100%;
   background-color: white;
 `;
 
-const CenteredContainer = styled.div`
+const StyledCenteredContainer = styled.div`
   min-height: 200px;
   width: 100%;
   height: 100%;
@@ -101,19 +106,19 @@ const CenteredContainer = styled.div`
   justify-content: center;
 `;
 
-const SuggestionsList = styled.ul`
+const StyledSuggestionsList = styled.ul`
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
 `;
 
-const Counter = styled.div`
+const StyledCounter = styled.div`
   color: #f0f2f5;
   font-size: 12px;
   align-self: flex-end;
 `;
 
-const ListItem = styled.li`
+const StyledListItem = styled.li`
   display: grid;
   font-size: 14px;
   grid-template-columns: auto 1fr auto;
@@ -128,12 +133,12 @@ const ListItem = styled.li`
     background-color: #f9fafb;
   }
 
-  & ${Counter} {
+  & ${StyledCounter} {
     color: #d1d7e0;
   }
 `;
 
-const Checkbox = styled.div<{ checked: boolean }>`
+const StyledCheckbox = styled.div<{ checked: boolean }>`
   width: 10px;
   height: 10px;
   background-color: ${({ checked }) => (checked ? '#0074BF' : '#D1D7E0')};
@@ -143,18 +148,18 @@ const Checkbox = styled.div<{ checked: boolean }>`
   justify-content: center;
 `;
 
-const Mark = styled.div`
+const StyledMark = styled.div`
   width: 4px;
   height: 4px;
   background-color: white;
   border-radius: 50%;
 `;
 
-const Label = styled.span`
+const StyledLabel = styled.span`
   font-size: 12px;
 `;
 
-const Button = styled.button<{ disabled: boolean }>`
+const StyledButton = styled.button<{ disabled: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   background-color: #0074bf;
   border: none;

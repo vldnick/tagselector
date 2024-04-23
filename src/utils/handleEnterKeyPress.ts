@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { KeyCode } from '../constants';
+export enum KeyCode {
+  ENTER = 'Enter',
+}
 
 export const handleEnterKeyDown =
   (callback: Function) => (event: React.KeyboardEvent<HTMLElement>) => {

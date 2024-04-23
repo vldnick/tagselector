@@ -20,8 +20,8 @@ export const SearchTagsField: React.FC<ISearchInputProps> = ({
   const handleClearKeyPress = handleEnterKeyDown(() => onChange(''));
 
   return (
-    <SearchContainer>
-      <InputContainer>
+    <StyledSearchContainer>
+      <StyledInputContainer>
         <SearchIcon />
         <Input
           onChange={(e) => onChange(e.target.value)}
@@ -30,25 +30,25 @@ export const SearchTagsField: React.FC<ISearchInputProps> = ({
           placeholder={placeholder}
         />
         {value?.length ? (
-          <ClearIconWrapper
+          <StyledClearIconWrapper
             data-testid="clear-icon"
             tabIndex={0}
             onKeyDown={handleClearKeyPress}
             onClick={() => onChange('')}
           >
             <ClearIcon />
-          </ClearIconWrapper>
+          </StyledClearIconWrapper>
         ) : null}
-      </InputContainer>
-    </SearchContainer>
+      </StyledInputContainer>
+    </StyledSearchContainer>
   );
 };
 
-const SearchContainer = styled.div`
+const StyledSearchContainer = styled.div`
   position: relative;
 `;
 
-const InputContainer = styled.div`
+const StyledInputContainer = styled.div`
   padding: 8px 4px;
   display: flex;
   width: 100%;
@@ -58,7 +58,7 @@ const InputContainer = styled.div`
   border-bottom: 1px solid #d1d7e0;
 `;
 
-const ClearIconWrapper = styled.div`
+const StyledClearIconWrapper = styled.div`
   align-self: flex-end;
   cursor: pointer;
 `;

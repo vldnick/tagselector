@@ -8,15 +8,15 @@ interface ITagProps extends Omit<ITag, 'count'> {
 }
 
 export const Tag: React.FC<ITagProps> = ({ value, label, onRemove }) => (
-  <TagContainer>
-    <Label>{label}</Label>
-    <IconWrapper role="button" onClick={() => onRemove(value)}>
-      <CloseIcon />
-    </IconWrapper>
-  </TagContainer>
+  <StyledTagContainer>
+    <StyledLabel>{label}</StyledLabel>
+    <StyledIconWrapper role="button" onClick={() => onRemove(value)}>
+      <CloseIcon size={20} />
+    </StyledIconWrapper>
+  </StyledTagContainer>
 );
 
-const TagContainer = styled.div`
+const StyledTagContainer = styled.div`
   padding: 4px 8px;
   display: flex;
   gap: 4px;
@@ -28,8 +28,8 @@ const TagContainer = styled.div`
   flex-grow: 0;
 `;
 
-const Label = styled.span``;
+const StyledLabel = styled.span``;
 
-const IconWrapper = styled.div`
+const StyledIconWrapper = styled.div`
   cursor: pointer;
 `;

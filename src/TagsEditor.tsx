@@ -103,8 +103,8 @@ export const TagsEditor: React.FC<ITagsEditorProps> = ({ articleId }) => {
   const shouldShowLoading = areTagsSearching || (isListOpen && !debouncedValue);
 
   return (
-    <Container ref={containerRef}>
-      <Title>Tags</Title>
+    <StyledContainer ref={containerRef}>
+      <StyledTitle>Tags</StyledTitle>
       <SearchTagsField
         onFocus={handleInputFocus}
         value={inputValue}
@@ -118,7 +118,7 @@ export const TagsEditor: React.FC<ITagsEditorProps> = ({ articleId }) => {
         isApplying={areTagsApplying}
       />
       {!isListOpen ? (
-        <TagsContainer
+        <StyledTagsContainer
           $isEmpty={appliedTags.length === 0}
           $isRemoving={isTagRemoving}
         >
@@ -130,13 +130,13 @@ export const TagsEditor: React.FC<ITagsEditorProps> = ({ articleId }) => {
               value={tag.value}
             />
           ))}
-        </TagsContainer>
+        </StyledTagsContainer>
       ) : null}
-    </Container>
+    </StyledContainer>
   );
 };
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   border-radius: 4px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
   border: 1px solid #d1d7e0;
@@ -154,7 +154,7 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h4`
+const StyledTitle = styled.h4`
   display: block;
   font-size: 20px;
   box-sizing: border-box;
@@ -163,7 +163,10 @@ const Title = styled.h4`
   font-weight: 600;
 `;
 
-const TagsContainer = styled.div<{ $isEmpty: boolean; $isRemoving: boolean }>`
+const StyledTagsContainer = styled.div<{
+  $isEmpty: boolean;
+  $isRemoving: boolean;
+}>`
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
